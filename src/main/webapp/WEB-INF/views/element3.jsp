@@ -14,7 +14,13 @@
 <div id="app">
     <el-row type="flex" justify="center">
         <el-col :span="16" :offset="1">
-            <el-form ref="form" :model="form" :rules="rules" label-width="100px">
+            <el-radio-group v-model="labelPosition" size="small" style="margin-bottom: 20px">
+                <el-radio-button label="left">左对齐</el-radio-button>
+                <el-radio-button label="right">右对齐</el-radio-button>
+                <el-radio-button label="top">顶部对齐</el-radio-button>
+            </el-radio-group>  <%--:label-position 是label左右对齐--%>
+
+            <el-form ref="form" :model="form" :rules="rules" label-width="100px" :label-position="labelPosition">
                 <el-form-item label="活动名称" prop="name">   <!--prop是配合:rules="",进行具体字段校验-->
                     <!--输入框-->
                     <el-col :span="6" >
@@ -77,23 +83,7 @@
 </div>
 
 <div id="app2">
-    <el-radio-group v-model="labelPosition" size="small">
-        <el-radio-button label="left">左对齐</el-radio-button>
-        <el-radio-button label="right">右对齐</el-radio-button>
-        <el-radio-button label="top">顶部对齐</el-radio-button>
-    </el-radio-group>
-    <div style="margin: 20px;"></div>
-    <el-form :label-position="labelPosition" label-width="80px" >
-        <el-form-item label="名称">
-            <el-input ></el-input>
-        </el-form-item>
-        <el-form-item label="活动区域">
-            <el-input ></el-input>
-        </el-form-item>
-        <el-form-item label="活动形式">
-            <el-input ></el-input>
-        </el-form-item>
-    </el-form>
+
 </div>
 
 <script type=text/javascript src="js/jquery.js"></script>
@@ -131,11 +121,12 @@
                 //     pattern: /^[\u4E00-\u9FA5]+$/,
                 //     message: '活动名称只能为中文'
                 // }]
-            }
+            },
+            labelPosition: 'left',
         },
         methods: {
             onSubmit() {
-                console.log(this.form.name);
+                console.log(this.form);
 
                 if(this.form.name.length<4){
                     this.$message({message:"不能少于4个字符",type:'warning'});
@@ -183,9 +174,9 @@
 <%--app2--%>
 <script>
     new Vue({
-        el: "#app2",
+        el: "",
         data: {
-            labelPosition: 'left',
+
         }
     })
 </script>

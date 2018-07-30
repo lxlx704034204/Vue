@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="war" build-on-make="true" name="Vue">
+    <output-path>$PROJECT_DIR$/out/artifacts/Vue</output-path>
+    <root id="archive" name="Vue.war">
+      <element id="artifact" artifact-name="Vue:war exploded" />
+      <element id="module-output" name="Vue" />
+    </root>
+  </artifact>
+</component>
