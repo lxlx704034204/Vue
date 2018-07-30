@@ -1,6 +1,6 @@
 package com.example.utils;
 
-import method.TimeToBCD;
+//import method.TimeToBCD;
 
 import java.io.*;
 import java.nio.ByteBuffer;
@@ -763,19 +763,19 @@ public class ByteUtils {
     /**
      * 将当前时间变为BCD时间byte[]
      */
-    public static byte[] BCD2bytes() {
-        byte[] reportTime = new byte[6];//BCD时间
-        Date now = new Date();//当前时间
-        SimpleDateFormat sdf = new SimpleDateFormat("YYMMddHHmmss");
-        String nowTime = sdf.format(now);
-        //System.out.println("nowTime:"+nowTime);
-        byte[] bcd = TimeToBCD.str2Bcd(nowTime);
-        //System.out.println("nowTimeBCD:"+Arrays.toString(bcd));
-        for (int i = 0; i < bcd.length; i++) {
-            reportTime[i] = bcd[i];
-        }
-        return reportTime;
-    }
+//    public static byte[] BCD2bytes() {
+//        byte[] reportTime = new byte[6];//BCD时间
+//        Date now = new Date();//当前时间
+//        SimpleDateFormat sdf = new SimpleDateFormat("YYMMddHHmmss");
+//        String nowTime = sdf.format(now);
+//        //System.out.println("nowTime:"+nowTime);
+//        byte[] bcd = TimeToBCD.str2Bcd(nowTime);
+//        //System.out.println("nowTimeBCD:"+Arrays.toString(bcd));
+//        for (int i = 0; i < bcd.length; i++) {
+//            reportTime[i] = bcd[i];
+//        }
+//        return reportTime;
+//    }
 
     public static short getShort(byte[] buf, boolean asc)
     {
