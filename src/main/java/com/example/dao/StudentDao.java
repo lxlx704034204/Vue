@@ -9,7 +9,10 @@ import org.apache.log4j.Logger;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class StudentDao {
 
@@ -18,14 +21,37 @@ public class StudentDao {
 
     //findall
     public List<Student> queryForList() {
-        String sql = "select * from student";
+        String sql = "select * from student order by createTime ";
         //第三个参数可以省略
         List<Student> list = jdbcTemplate.query(sql, new LocalRowMapper(Student.class));
         return list;
     }
+
+    //findall + page
+    public List<Student> queryForList2(int page,int pageSize) {
+        String sql = "select * from student order by createTime ";
+        List <Object> params=new ArrayList<Object>();
+        if (page!=0 && pageSize!=0) {
+            sql += "limit ?,? ";
+            params.add((page-1)*pageSize);
+            params.add(pageSize);
+        }
+
+        List<Student> list = jdbcTemplate.query(sql,params.toArray(),new LocalRowMapper(Student.class));
+        return list;
+    }
+
+    //findall总数
+    public int queryForList3() {
+        String sql = "select count(*) from student";
+        //第三个参数可以省略
+        int count = jdbcTemplate.queryForObject(sql,Integer.class);
+        return count;
+    }
+
     //add
     public static int insertData(Student stu) {
-        String sql = "insert into student values(?,?,?)";
+        String sql = "insert into student values(?,?,?,CURRENT_TIMESTAMP)";
         int rows = 0;
         try {
             rows = jdbcTemplate.update(sql,

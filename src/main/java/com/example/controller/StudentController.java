@@ -1,12 +1,10 @@
 package com.example.controller;
 
-import com.alibaba.druid.support.json.JSONUtils;
 import com.example.bean.Student;
 import com.example.dao.StudentDao;
 import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.converter.json.GsonFactoryBean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -16,7 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.net.URLDecoder;
 import java.util.*;
 
 // 注解标注此类为springmvc的controller，url映射为"/home"
@@ -31,9 +28,9 @@ public class StudentController {
     public String index(){
         return "vuebase";
     }
-    @RequestMapping("/element")
-    public String element(){
-        return "element-ui-base";
+    @RequestMapping("/element_liandong2")
+    public String element_liandong2(){
+        return "element_liandong2";
     }
 
     @RequestMapping("/map")
@@ -66,24 +63,24 @@ public class StudentController {
         return "layui_select";
     }
 
-    @RequestMapping("/liandong")
-    public String liandong(){
-        return "liandong";
+    @RequestMapping("/element_liandong")
+    public String element_liandong(){
+        return "element_liandong";
     }
 
-    @RequestMapping("/elements")
-    public String elements(){
-        return "element";
+    @RequestMapping("/element_layout")
+    public String element_layout(){
+        return "element_layout";
     }
 
-    @RequestMapping("/elements2")
-    public String elements2(){
-        return "element2";
+    @RequestMapping("/element_table")
+    public String element_table(){
+        return "element_table";
     }
 
-    @RequestMapping("/elements3")
-    public String elements3(){
-        return "element3";
+    @RequestMapping("/element_form")
+    public String element_form(){
+        return "element_form";
     }
 
     @RequestMapping("/echarts_jianhua")
@@ -128,6 +125,27 @@ public class StudentController {
 
         Gson gson = new Gson();
         String s = gson.toJson(list);
+        return s;
+    }
+
+    //有分页
+    @RequestMapping(value="/findalll2",method = RequestMethod.POST,produces = "text/plain;charset=utf-8")
+    @ResponseBody
+    public String findalll2(@RequestBody Map map){
+        String page = (String)map.get("page");
+        String pageSize = (String)map.get("pageSize");
+
+        List<Student> list = dao.queryForList2(Integer.parseInt(page),Integer.parseInt(pageSize));
+        log.info("list:"+list);
+
+        int count = dao.queryForList3();
+
+        List allList = new ArrayList();
+        allList.add(list);
+        allList.add(count);
+
+        Gson gson = new Gson();
+        String s = gson.toJson(allList);
         return s;
     }
 

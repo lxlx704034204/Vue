@@ -82,6 +82,16 @@
             </template>
         </el-table-column>
     </el-table>
+    <!--分页-->
+    <el-pagination
+            @size-change="handleSizeChange"
+            @current-change="handleCurrentChange"
+            :current-page="currentPage"
+            :page-sizes="pageSizes"
+            :page-size="pageSize"
+            layout="prev, pager, next, jumper, sizes, total"
+            :total="totalPage">
+    </el-pagination>
     <el-button size="mini" @click="add()" :plain="true">添加</el-button>
 
     <el-dialog title="添加学生" :visible.sync="dialogFormVisible">
@@ -142,7 +152,11 @@
             age:'',
             sid1:'',
             sname1:'',
-            age1:''
+            age1:'',
+            currentPage: 1,
+            pageSize:5,
+            pageSizes:[5, 10, 15, 20],
+            totalPage:0
         },
         methods: {
             // formatter属性，它用于格式化指定列的值，接受一个Function，会传入两个参数：row和column，可以根据自己的需求进行处理。
@@ -229,6 +243,17 @@
                 console.log("111");
                 console.log(selection);
             },
+            handleSizeChange(val) {
+                this.pageSize = val;
+                console.log('每页 '+val+' 条');
+                send(v)
+            },
+            handleCurrentChange(val) {
+                this.currentPage = val;
+                console.log('当前页: '+val);
+                send(v)
+            },
+
         },
         mounted: function () {
             var _this = this   //很重要！！
@@ -237,10 +262,23 @@
     })
 
     function send(_this) {
-        axios.get('findalll')
+        //传参为数值时，必须先转为字符串，否则，后台会接受到带.0的数字
+        var currentPage =  _this.currentPage+"";
+        var pageSize =  _this.pageSize+"";
+        console.log(currentPage+","+pageSize);
+
+        // let params = new URLSearchParams();
+        // params.append("page", "1");
+        // params.append("pageSize", "10");
+
+        axios.post('findalll2',{
+            page:currentPage
+            ,pageSize:pageSize
+        })
             .then(function (res) {
-                // console.log(res);
-                _this.tableData = res.data
+                console.log(res);
+                _this.tableData = res.data[0]
+                _this.totalPage = res.data[1]
             })
             .catch(function (error) {
                 console.log(error);

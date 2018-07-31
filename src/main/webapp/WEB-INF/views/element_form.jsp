@@ -57,7 +57,7 @@
                 </el-form-item>
                 <el-form-item label="即时配送" prop="delivery">
                     <!--选择开关-->
-                    <el-switch v-model="form.delivery"></el-switch>
+                    <el-switch v-model="form.delivery" style="margin-top: 5px;"></el-switch>
                 </el-form-item>
                 <el-form-item label="活动性质" prop="types">
                     <!--多选-->
@@ -75,7 +75,7 @@
                 </el-form-item>
                 <el-form-item label="特殊资源" prop="resource">
                     <!--单选-->
-                    <el-radio-group v-model="form.resource">
+                    <el-radio-group v-model="form.resource" style="margin-top: 7px;">
                         <el-radio label="线上品牌商赞助"></el-radio>
                         <el-radio label="线下场地免费"></el-radio>
                     </el-radio-group>
